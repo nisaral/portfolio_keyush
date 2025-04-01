@@ -1,67 +1,783 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>My First Web Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyush Nisar - AI/ML and DATA SCIENCE ENTHUSIAST</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --dark: #111827;
+            --light: #f9fafb;
+            --gray: #6b7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            perspective: 1000px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            transform-style: preserve-3d;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            transform: translateZ(50px);
+        }
+        
+        .hero h2 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            transform: translateZ(30px);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin-bottom: 2rem;
+            transform: translateZ(20px);
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            transform: translateZ(10px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+        
+        .cta-btn:hover {
+            background: var(--primary-dark);
+            transform: translateZ(15px) scale(1.05);
+        }
+        
+        /* 3D Background Elements */
+        .bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            filter: blur(5px);
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .bg-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 20%;
+            left: 10%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+            animation-delay: 0s;
+        }
+        
+        .bg-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: 15%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2), transparent);
+            animation-delay: 2s;
+        }
+        
+        .bg-element:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.2), transparent);
+            animation-delay: 4s;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            z-index: 100;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 4px;
+            background: var(--secondary);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-tag {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        /* Experience Section */
+        .experience {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            position: relative;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            transform: rotateY(-5deg);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            transform: rotateY(5deg);
+        }
+        
+        .timeline-content:hover {
+            transform: rotateY(0);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content:hover {
+            transform: rotateY(0);
+        }
+        
+        .timeline-date {
+            position: absolute;
+            top: 20px;
+            right: -180px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-date {
+            right: auto;
+            left: -180px;
+        }
+        
+        .timeline-title {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+        
+        .timeline-position {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 100px 0;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .project-desc {
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .tech-stack {
+            margin-top: 15px;
+        }
+        
+        .tech-stack-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--gray);
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tech-tag {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .contact-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            width: 250px;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .contact-option:hover {
+            transform: translateZ(20px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-link {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            color: var(--secondary);
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-link {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-30px) scale(1.1);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 3D Mouse Move Effect */
+        .tilt-element {
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+    </style>
 </head>
-
 <body>
-    <div id="navbar">
-        <img id="navlogo" src="bb243912bc82097566e15751b24220b8.jpg" alt="logo">
-    </div>
-    <img id="banner" src="image.png" alt="Banner">
-    <h1>About Keyush Nisar the next big thing in TECH</h1>
-    <div id="about">
-
-        <div id="description">
-
-            <p>A focused and dedicated BTech AIML student with a strong interest in artificial intelligence. I enjoy finding new ways to apply AI and am committed to continuous learning. My discipline is reflected in my regular gym routine, where I work hard to improve myself every day. Whether in the gym or studying AI, I tackle challenges with determination and a drive to get better.
-            </p>
-            <p>My top to project Github repos are:
-            <ol>
-                <li>
-                    <a href="https://github.com/nisaral/DL_practice_grounds">
-                        DeepLearing playground where I have implemented various deep learning models to solve issues like skin lession classification and Crypto currencies forecasting
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/nisaral/nlp_practiceground">
-                        From working on multilingual comments multiclass classification to sentiment analysis on reddit posts to ISL and ASL, I have worked on various NLP projects
-                    </a>
-                </li>
-            </ol>
-            </p>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Keyush Nisar</a>
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
         </div>
-        <img src="amuvy.jpg" height="240" alt="team" id="team">
+    </nav>
 
-    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="bg-elements">
+            <div class="bg-element"></div>
+            <div class="bg-element"></div>
+            <div class="bg-element"></div>
+        </div>
+        <div class="container hero-content tilt-element">
+            <h1>Keyush Nisar</h1>
+            <h2>AI/ML Engineer & Researcher</h2>
+            <p>A focused and dedicated BTech AIML student with a strong interest in artificial intelligence. I enjoy finding new ways to apply AI and am committed to continuous learning. My discipline is reflected in my regular gym routine, where I work hard to improve myself every day. Whether in the gym or studying AI, I tackle challenges with determination and a drive to get better.</p>
+            <a href="#contact" class="cta-btn">Get In Touch</a>
+        </div>
+    </section>
 
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm an AI and Machine Learning student pursuing my B.Tech at D.J Sanghvi College of Engineering, Mumbai University. My passion lies in developing innovative AI solutions to solve real-world problems.</p>
+                    <p>My journey in the field of AI has led me to explore various domains including GenAI, drug discovery, computational biology, and supply chain optimization. I'm constantly pushing the boundaries of what's possible with AI through research internships and project work.</p>
+                    <p>Beyond technical skills, I value discipline and continuous improvement - principles I apply both in my academic pursuits and personal fitness routine.</p>
+                </div>
+                <div class="skills-section">
+                    <h3>Technical Skills</h3>
+                    <div class="skills-container">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Deep Learning</span>
+                        <span class="skill-tag">NLP</span>
+                        <span class="skill-tag">Generative AI</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Git</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content tilt-element">
+                        <span class="timeline-date">02/2025 - Present</span>
+                        <h3 class="timeline-title">COE-CNDS LABS</h3>
+                        <p class="timeline-position">GenAI Research Intern</p>
+                        <p>Developing authentic multilingual datasets (Marathi, Gujrati, Urdu, Bengali, Hindi) for fine-tuning Large Language Models (LLMs) in cybersecurity applications, ensuring linguistic diversity and accuracy.</p>
+                        <p>Key focus Areas: GenAI (LLMs, Fine-tuning, LoRA), OCR, NLP, ML/DL</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content tilt-element">
+                        <span class="timeline-date">12/2024 - Present</span>
+                        <h3 class="timeline-title">ULTRACEUTICALS</h3>
+                        <p class="timeline-position">Artificial Intelligence and Machine Learning Intern</p>
+                        <p>Working on an AI-based drug discovery platform leveraging advanced techniques to identify potential drug candidates.</p>
+                        <p>Developing models to analyze complex datasets and generate insights to support drug repurposing efforts.</p>
+                        <p>Key Focus Areas: Machine Learning, Deep Learning, Computational Biology, Graph Neural Networks (GNNs)</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
 
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card tilt-element">
+                    <div class="project-content">
+                        <h3 class="project-title">KnowledgeForge</h3>
+                        <p class="project-desc">Built an AI-powered learning assistant using RAG for summarizing content from web, YouTube, and documents, along with generating mock tests and Q&A sessions.</p>
+                        <p class="project-desc">Designed a 3D interactive UI using Flask and incorporated visualization tools like Graphviz to enhance user engagement.</p>
+                        <div class="tech-stack">
+                            <p class="tech-stack-title">Tech Stack:</p>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Flask</span>
+                                <span class="tech-tag">RAG</span>
+                                <span class="tech-tag">FAISS</span>
+                                <span class="tech-tag">Gemini API</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Graphviz</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card tilt-element">
+                    <div class="project-content">
+                        <h3 class="project-title">Supply Chain Optimization with GenAI</h3>
+                        <p class="project-desc">Developed a supply chain optimization system by integrating OpenAI LLM with RAG for real-time shipment tracking and routing optimization.</p>
+                        <p class="project-desc">Implemented SARIMA/ARIMA models for 30-day sales prediction. Built a Flask backend with a dashboard using PowerBI for real-time data monitoring.</p>
+                        <div class="tech-stack">
+                            <p class="tech-stack-title">Tech Stack:</p>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Flask</span>
+                                <span class="tech-tag">RAG</span>
+                                <span class="tech-tag">OpenAI LLM</span>
+                                <span class="tech-tag">SARIMA</span>
+                                <span class="tech-tag">ARIMA</span>
+                                <span class="tech-tag">HTML/CSS/JS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card tilt-element">
+                    <div class="project-content">
+                        <h3 class="project-title">DermaSight</h3>
+                        <p class="project-desc">Ingestion & ETL: Collect images via API/uploads, preprocess with OpenCV/PIL, augment using GANs.</p>
+                        <p class="project-desc">Modeling & Deployment: Deploy CNN (ResNet/EfficientNet) via FastAPI/Flask for real-time classification.</p>
+                        <p class="project-desc">Insights & Visualization: Store patient records, detect trends, and analyze via Power BI dashboard.</p>
+                        <div class="tech-stack">
+                            <p class="tech-stack-title">Tech Stack:</p>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">OpenCV</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">Flask</span>
+                                <span class="tech-tag">SQL</span>
+                                <span class="tech-tag">Power BI</span>
+                                <span class="tech-tag">GANs</span>
+                                <span class="tech-tag">Deep Learning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-   
+    <!-- Achievements Section -->
+    <section class="experience">
+        <div class="container">
+            <h2 class="section-title">Achievements</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content tilt-element">
+                        <h3 class="timeline-title">Nexus Kaggle Competition</h3>
+                        <p>Second Runner-up — Achieved an F1 score of 99.56 in a drug status prediction challenge using a stacking classifier with Logistic Regression and XGBoost after rigorous data analysis.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content tilt-element">
+                        <h3 class="timeline-title">Technograd 2.0 Datathon</h3>
+                        <p>Second Runner-up — Built and deployed machine learning models during a ML/DL hackathon, showcasing strong problem-solving and model-building skills.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content tilt-element">
+                        <h3 class="timeline-title">Catnip Infotech Pvt Ltd Hackathon</h3>
+                        <p>Runner-up — Competed and secured second place by building a recommendation system during a company-organized hackathon.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content tilt-element">
+                        <h3 class="timeline-title">Hack2Infinity Hackathon</h3>
+                        <p>Awarded 'Best in AI Category' for developing MindCompanion, an innovative mental health solution featuring multilingual AI therapy, sentiment analysis, and personalized support systems.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div id="footer">
-        <ul id="footer-links">
-            <li>
-                <a href="Nisarkeyush3@gmail.com" target="_blank">
-                    Email
-                </a>
-            </li>
-            <li>
-                <a href="https://www.linkedin.com/in/keyush-n-017a3a2b3/" target="_blank">
-                    Linkedin
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/nisaral" target="_blank">
-                    Github
-                </a>
-            </li>
-        </ul>
-        <span id="copyright">© 2025</span>
-    </div>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p>Feel free to reach out to me for collaborations, opportunities, or just a chat about AI and technology!</p>
+            <div class="contact-options">
+                <div class="contact-option tilt-element">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <a href="nisarkeyush3@gmail.com" class="contact-link">nisarkeyush3@gmail.com</a>
+                </div>
+                <div class="contact-option tilt-element">
+                    <div class="contact-icon">🔗</div>
+                    <h3>LinkedIn</h3>
+                    <a href="https://www.linkedin.com/in/keyush-n-017a3a2b3/" class="contact-link">linkedin/keyushnisar</a>
+                </div>
+                <div class="contact-option tilt-element">
+                    <div class="contact-icon">💻</div>
+                    <h3>GitHub</h3>
+                    <a href="https://github.com/nisaral" class="contact-link">github/keyushnisar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="#" class="social-link">📧</a>
+                <a href="#" class="social-link">🔗</a>
+                <a href="#" class="social-link">💻</a>
+                <a href="#" class="social-link">📱</a>
+            </div>
+            <p class="copyright">© 2025 Keyush Nisar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 3D Tilt Effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const tiltElements = document.querySelectorAll('.tilt-element');
+            
+            document.addEventListener('mousemove', function(e) {
+                tiltElements.forEach(element => {
+                    const rect = element.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    
+                    const distanceX = e.clientX - centerX;
+                    const distanceY = e.clientY - centerY;
+                    
+                    // Check if mouse is close enough to affect element
+                    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                    const maxDistance = Math.max(window.innerWidth, window.innerHeight) / 2;
+                    
+                    if (distance < maxDistance) {
+                        const tiltX = distanceY / 30; // Adjust divisor to control tilt intensity
+                        const tiltY = -distanceX / 30;
+                        
+                        element.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+                    } else {
+                        element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                    }
+                });
+            });
+            
+            // Reset tilt when mouse leaves window
+            document.addEventListener('mouseleave', function() {
+                tiltElements.forEach(element => {
+                    element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                });
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
-
 </html>
